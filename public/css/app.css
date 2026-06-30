@@ -1,0 +1,239 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Base Page Reset & Structural Wrapper */
+.auth-page-wrapper {
+  min-height: 100vh;
+  background-color: #eef5fc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-family: sans-serif;
+  color: #000000;
+}
+
+.auth-container {
+  width: 100%;
+  max-w: 28rem; /* 448px */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* Typography elements */
+.auth-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.auth-subtitle {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+}
+
+/* Brand styling rules */
+.brand-logo-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  margin-bottom: 0.25rem;
+}
+
+.logo-bubbles {
+  position: relative;
+  width: 2.25rem;
+  height: 1.75rem;
+  color: #00b040;
+  flex-shrink: 0;
+}
+
+.bubble-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.bubble-front {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #eef5fc;
+  border-radius: 50%;
+  background-color: #eef5fc;
+}
+
+.brand-name {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #00b040;
+  letter-spacing: -0.05em;
+}
+
+/* Form Structural Layout Classes */
+.auth-form {
+  text-align: left;
+  max-width: 30rem; /* 384px */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+/* Custom Underline Text Inputs */
+.input-underline {
+  display: block;
+  width: 100%;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  background-color: transparent !important;
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-bottom: 2px solid #0303f9 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-size: 0.875rem;
+  color: #374151;
+  transition: border-color 0.2s;
+}
+
+.input-underline:focus {
+  outline: none !important;
+  border-color: #2563eb !important;
+  box-shadow: none !important;
+}
+
+
+   /* ADDED: Faint Placeholder Configuration*/
+   
+.input-underline::placeholder {
+  color: #ebe1e1 !important;
+  opacity: 0.6 !important;
+} 
+
+/* Webkit (Safari / Chrome) specific fix */
+.input-underline::-webkit-input-placeholder {
+  color: #ebe1e1 !important;
+  opacity: 0.6 !important;
+}
+
+.error{
+  color: red;
+}
+
+
+/* Checkbox alignment structures */
+.checkbox-group, .flex-start {
+  display: flex;
+  align-items: center;
+}
+
+.flex-start {
+  align-items: flex-start;
+}
+
+.checkbox-label {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.custom-checkbox {
+  width: 1rem;
+  height: 1rem;
+  color: #2563eb;
+  border: 1px solid #000000;
+  background-color: transparent;
+}
+
+.mt-05 {
+  margin-top: 0.125rem;
+}
+
+/* Warning block below terms rules */
+.policy-block {
+  margin-bottom: 2rem;
+}
+
+.policy-warning {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+  padding-left: 1.5rem;
+}
+
+/* Common Links styling rules */
+.link-primary {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link-primary:hover {
+  text-decoration: underline;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+/* Action Execution Element (Brutalist style matching button outline) */
+.form-action {
+  margin-bottom: 2rem;
+}
+
+.btn-brutalist {
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: #2b73df;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  border: 2px solid #000000;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
+  transition: all 0.1s ease-in-out;
+}
+
+.btn-brutalist:hover {
+  background-color: #1e60cb;
+}
+
+.btn-brutalist:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+}
+
+.auth-footer {
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
