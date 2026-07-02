@@ -5,6 +5,45 @@
         <h1 class="main-title">{{ __('Quiz Performance History') }}</h1>
         <p class="sub-title">{{ __('Review complete grade sheets and submission timestamps') }}</p>
 
+        <form method="GET" action="{{ route('quizzes.history') }}" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: end; margin: 1.5rem 0; padding: 1.25rem; background: rgba(255,255,255,0.02); border-radius: 8px;">
+
+            <div>
+                <label style="display:block; font-size:0.85rem; color:#9ca3af; margin-bottom:0.25rem;">{{ __('Quiz') }}</label>
+                <select name="quiz_id" style="padding:0.5rem; border-radius:6px; background:#1f2937; color:#fff; border:1px solid rgba(255,255,255,0.1);">
+                    <option value="">{{ __('All Quizzes') }}</option>
+                    @foreach($quizzes as $quiz)
+                        <option value="{{ $quiz->id }}" @selected(request('quiz_id') == $quiz->id)>{{ $quiz->title }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div>
+                <label style="display:block; font-size:0.85rem; color:#9ca3af; margin-bottom:0.25rem;">{{ __('Student') }}</label>
+                <select name="user_id" style="padding:0.5rem; border-radius:6px; background:#1f2937; color:#fff; border:1px solid rgba(255,255,255,0.1);">
+                    <option value="">{{ __('All Students') }}</option>
+                    @foreach($students as $student)
+                        <option value="{{ $student->id }}" @selected(request('user_id') == $student->id)>{{ $student->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div>
+                <label style="display:block; font-size:0.85rem; color:#9ca3af; margin-bottom:0.25rem;">{{ __('From') }}</label>
+                <input type="date" name="date_from" value="{{ request('date_from') }}" style="padding:0.5rem; border-radius:6px; background:#1f2937; color:#fff; border:1px solid rgba(255,255,255,0.1);">
+            </div>
+
+            <div>
+                <label style="display:block; font-size:0.85rem; color:#9ca3af; margin-bottom:0.25rem;">{{ __('To') }}</label>
+                <input type="date" name="date_to" value="{{ request('date_to') }}" style="padding:0.5rem; border-radius:6px; background:#1f2937; color:#fff; border:1px solid rgba(255,255,255,0.1);">
+            </div>
+
+            <div style="display:flex; gap:0.5rem;">
+                <button type="submit" class="btn-register-custom" style="width:auto; padding:0.5rem 1.25rem;">{{ __('Filter') }}</button>
+                <a href="{{ route('quizzes.history') }}" style="padding:0.5rem 1.25rem; color:#9ca3af; text-decoration:none; align-self:center;">{{ __('Clear') }}</a>
+            </div>
+
+        </form>
+
         @if($attempts->isEmpty())
             <div style="text-align: center; padding: 3rem; background: rgba(255, 255, 255, 0.02); border-radius: 8px;">
                 <p class="sub-title" style="font-size: 1.1rem;">{{ __('No quiz records found.') }}</p>
@@ -23,7 +62,7 @@
                 <tbody>
                     @foreach($attempts as $attempt)
                         <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); background: rgba(255, 255, 255, 0.01);">
-                            <td style="padding: 1rem;">{{ $attempt->user->username ?? __('Unknown Student') }}</td>
+                            <td style="padding: 1rem;">{{ optional($attempt->user)->name ?? __('Unknown Student') }}</td>
                             <td style="padding: 1rem; font-weight: bold;">{{ $attempt->quiz->title ?? __('Deleted Quiz') }}</td>
                             <td style="padding: 1rem; color: #3b82f6;">
                                 {{ $attempt->score }} / {{ $attempt->total_questions }}
@@ -43,7 +82,7 @@
                 </tbody>
             </table>
         @endif
-        
+
         <div style="margin-top: 2rem;">
             <a href="{{ route('quizzes.index') }}" class="btn-register-custom" style="text-decoration: none; width: auto; padding: 0.5rem 1.5rem; background: #4b5563;">
                 {{ __('&larr; Back to Quizzes') }}

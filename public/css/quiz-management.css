@@ -1,95 +1,18 @@
-/* Base Body Overrides if needed for theme consistency */
+/* Base Body Overrides */
 body {
-    background-color: #0f172a; /* Deep elegant dark slate */
+    background-color: #f1f5f9; /* Light gray background */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1e293b;
 }
 
-/* Glassmorphism Container Card Setup */
+/* Main Container - Clean Light Theme */
 .auth-card-container {
-    background: rgba(255, 255, 255, 0.03) !important;
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 16px !important; /* Smooth rounded interface edges */
-    padding: 2.5rem;
-    color: #ffffff;
-    /* Brutalist stark shadow depth variant */
-    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.4); 
-    margin: 2rem auto;
-}
-
-/* Individual Item Quiz Cards */
-.quiz-card, .question-card {
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    border-radius: 12px !important;
-    padding: 1.5rem;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.2);
-}
-
-.quiz-card:hover {
-    background: rgba(255, 255, 255, 0.05) !important;
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px 0px rgba(59, 130, 246, 0.4); /* Colored brutalist hover pop */
-}
-
-/* Clean Custom Input Structural Layouts */
-.input-custom, .select-custom {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background: rgba(0, 0, 0, 0.2) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 8px !important;
-    color: #ffffff !important;
-    font-size: 1rem;
-    outline: none;
-    transition: all 0.2s ease;
-}
-
-.input-custom:focus {
-    border-color: #3b82f6 !important;
-    background: rgba(0, 0, 0, 0.3) !important;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
-}
-
-/* High-Contrast Action Elements */
-.btn-register-custom {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: #3b82f6 !important; /* Royal Blue */
-    color: #ffffff !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 8px !important;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    box-shadow: 3px 3px 0px 0px #1d4ed8;
-}
-
-.btn-register-custom:hover {
-    background: #2563eb !important;
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0px 0px #1d4ed8;
-}
-
-.btn-register-custom:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px 0px #1d4ed8;
-}/* ==========================================================================
-   QUIZ MANAGEMENT SYSTEM - STANDALONE CUSTOM STYLE SHEET
-   ========================================================================== */
-
-/* Main Container: Elegant Solid Dark Slate Panel for High Readability */
-.auth-card-container {
-    background: #1e293b !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
     border-radius: 16px !important;
     padding: 2.5rem;
-    color: #ffffff !important;
-    /* Brutalist sharp solid contrast drop shadow */
-    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.5); 
+    color: #1e293b !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     margin: 1.5rem auto;
     width: 100%;
     max-width: 1100px;
@@ -100,18 +23,18 @@ body {
 .main-title {
     font-size: 2rem;
     font-weight: 700;
-    color: #ffffff !important;
+    color: #0f172a !important;
     margin-bottom: 0.5rem;
     letter-spacing: -0.025em;
 }
 
 .sub-title {
     font-size: 1rem;
-    color: #cbd5e1 !important;
+    color: #475569 !important;
     margin-bottom: 1.5rem;
 }
 
-/* Functional Form Structural Groups */
+/* Form Groups */
 .form-group-custom {
     margin-bottom: 1.5rem;
     display: flex;
@@ -122,19 +45,19 @@ body {
 .label-custom {
     font-size: 0.95rem;
     font-weight: 600;
-    color: #ffffff !important;
+    color: #1e293b !important;
 }
 
-/* Native High-Contrast Interface Form Elements */
+/* Form Inputs - Light Theme */
 .input-custom, 
 .select-custom, 
 textarea {
     width: 100%;
     padding: 0.75rem 1rem;
-    background: #0f172a !important; /* Deep contrast backdrop interior */
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    background: #f8fafc !important;
+    border: 1px solid #d1d5db !important;
     border-radius: 8px !important;
-    color: #ffffff !important;
+    color: #1e293b !important;
     font-size: 1rem;
     outline: none;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -145,60 +68,78 @@ textarea {
 .select-custom:focus, 
 textarea:focus {
     border-color: #3b82f6 !important;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
 }
 
 .input-custom::placeholder, 
 textarea::placeholder {
-    color: #64748b !important;
+    color: #94a3b8 !important;
 }
 
-/* Individual Block Assessment Cards */
+/* Cards - Clean Light */
 .quiz-card, 
 .question-card {
-    background: #111827 !important; /* Contrasting dark core grid card */
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
     border-radius: 12px !important;
     padding: 1.5rem;
-    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     transition: all 0.2s ease-in-out;
 }
 
-/* Hover Accent Pops */
 .quiz-card:hover {
-    border-color: rgba(59, 130, 246, 0.5) !important;
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px 0px rgba(59, 130, 246, 0.3);
+    border-color: #3b82f6 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
 }
 
-/* Brutalist High-Contrast Buttons */
+/* Buttons - Light Theme */
 .btn-register-custom {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    background: #3b82f6 !important; /* Brilliant Blue Accent */
+    background: #3b82f6 !important;
     color: #ffffff !important;
     border: none;
     border-radius: 8px !important;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
-    box-shadow: 3px 3px 0px 0px #1d4ed8;
-    transition: all 0.1s ease;
+    transition: all 0.15s ease;
     text-align: center;
 }
 
 .btn-register-custom:hover {
     background: #2563eb !important;
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0px 0px #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
 }
 
 .btn-register-custom:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0px 0px #1d4ed8;
+    transform: translateY(0px);
 }
 
-/* Success Validation Banner */
+/* Danger Button for Delete */
+.btn-danger {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    border: none;
+    border-radius: 8px !important;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+}
+
+.btn-danger:hover {
+    background: #dc2626 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);
+}
+
+/* Success Banner */
 .form-status {
     padding: 1rem;
     border-radius: 8px;
@@ -206,11 +147,110 @@ textarea::placeholder {
     font-size: 0.95rem;
 }
 
-/* Radio Control Option Spacers */
+/* Success Message */
+.alert-success {
+    background-color: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+/* Error Message */
+.alert-error {
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+/* Radio and Checkbox Options */
 .question-card label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    color: #1e293b !important;
+    cursor: pointer;
     transition: color 0.15s ease;
 }
 
 .question-card label:hover {
-    color: #ffffff !important;
+    color: #0f172a !important;
+}
+
+.question-card input[type="radio"] {
+    accent-color: #3b82f6;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Table Styles for History */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: #f1f5f9;
+    color: #1e293b;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #1e293b;
+}
+
+tr:hover {
+    background: #f8fafc;
+}
+
+/* Links */
+a {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+/* Filter Section */
+.filter-section {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 1.5rem;
+}
+
+.filter-section .form-group-custom {
+    margin-bottom: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .auth-card-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .main-title {
+        font-size: 1.5rem;
+    }
+    
+    .filter-section {
+        padding: 1rem;
+    }
 }

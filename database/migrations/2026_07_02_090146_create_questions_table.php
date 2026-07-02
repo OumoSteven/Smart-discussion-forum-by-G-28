@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
 {
-    Schema::create('questions', function (Blueprint $table) {
+    Schema::connection('quiz_db')->create('questions', function (Blueprint $table) {
         $table->id();
-        // Links this question to its specific quiz
-        $table->foreignId('quiz_id')->constrained()->onDelete('cascade');
+        $table->unsignedBigInteger('quiz_id');
         $table->text('question_text');
         $table->string('option_a');
         $table->string('option_b');

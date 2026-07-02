@@ -65,6 +65,7 @@ class QuizController extends Controller
     public function show($id)
     {
         $quiz = Quiz::with('questions')->findOrFail($id);
+
         return view('quizzes.show', compact('quiz'));
     }
 
@@ -73,7 +74,7 @@ class QuizController extends Controller
     {
         $quiz = Quiz::with('questions')->findOrFail($id);
         $userAnswers = $request->input('answers', []);
-        
+
         $score = 0;
         $totalQuestions = $quiz->questions->count();
 
@@ -95,10 +96,32 @@ class QuizController extends Controller
     }
 
     // Pulls historical score matrices for grading insights
-    public function history()
+   // Pulls historical score matrices for grading insights, with optional filters
+    public function history(Request $request)
     {
-        $attempts = StudentQuiz::with(['user', 'quiz'])->latest('completed_at')->get();
-        return view('quizzes.history', compact('attempts'));
+        $query = StudentQuiz::query()->with(['user', 'quiz']);
+
+        if ($request->filled('quiz_id')) {
+            $query->where('quiz_id', $request->quiz_id);
+        }
+
+        if ($request->filled('user_id')) {
+            $query->where('user_id', $request->user_id);
+        }
+
+        if ($request->filled('date_from')) {
+            $query->whereDate('completed_at', '>=', $request->date_from);
+        }
+        if ($request->filled('date_to')) {
+            $query->whereDate('completed_at', '<=', $request->date_to);
+        }
+
+        $attempts = $query->latest('completed_at')->get();
+
+        $quizzes = Quiz::orderBy('title')->get();
+        $students = \App\Models\User::orderBy('name')->get();
+
+        return view('quizzes.history', compact('attempts', 'quizzes', 'students'));
     }
 
     // Deletes an evaluation entirely

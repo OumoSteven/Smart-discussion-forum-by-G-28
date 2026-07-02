@@ -9,14 +9,21 @@ class Question extends Model
 {
     use HasFactory;
 
+    // REMOVE THIS LINE: protected $connection = 'quiz_db';
+    
     protected $fillable = [
-        'quiz_id', 'question_text', 
-        'option_a', 'option_b', 'option_c', 'option_d', 
+        'quiz_id', 
+        'question_text', 
+        'option_a', 
+        'option_b', 
+        'option_c', 
+        'option_d', 
         'correct_option'
     ];
 
     public function quiz()
     {
-        return $this->belongsTo(Quiz::class);
+        // Remove ->on('quiz_db')
+        return $this->belongsTo(Quiz::class, 'quiz_id');
     }
 }

@@ -44,6 +44,26 @@ return [
             'transaction_mode' => 'DEFERRED',
         ],
 
+        'quiz_db' => [
+            'driver' => 'mysql',
+            'url' => env('QUIZ_DB_URL'),
+            'host' => env('QUIZ_DB_HOST', '127.0.0.1'),
+            'port' => env('QUIZ_DB_PORT', '3306'),
+            'database' => env('QUIZ_DB_DATABASE', 'quiz_db'),
+            'username' => env('QUIZ_DB_USERNAME', 'root'),
+            'password' => env('QUIZ_DB_PASSWORD', ''),
+            'unix_socket' => env('QUIZ_DB_SOCKET', ''),
+            'charset' => env('QUIZ_DB_CHARSET', 'utf8mb4'),
+            'collation' => env('QUIZ_DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),

@@ -24,16 +24,27 @@
                 <p class="sub-title" style="margin: 0.25rem 0 0 0;">{{ __('Assessments managed by your course instructors') }}</p>
             </div>
             
-            {{-- Quick create link --}}
-            <a href="{{ route('quizzes.create') }}" class="btn-register-custom" style="text-decoration: none; text-align: center; width: auto; padding: 0.75rem 1.5rem;">
-                {{ __('+ Create New Quiz') }}
-            </a>
+            {{-- Quick create link - Only for lecturers and admins --}}
+            @auth
+                @if(auth()->user()->canManageQuizzes())
+                    <a href="{{ route('quizzes.create') }}" class="btn-register-custom" style="text-decoration: none; text-align: center; width: auto; padding: 0.75rem 1.5rem;">
+                        {{ __('+ Create New Quiz') }}
+                    </a>
+                @endif
+            @endauth
         </div>
 
         {{-- Main Assessments List Grid --}}
         @if($quizzes->isEmpty())
             <div style="text-align: center; padding: 3rem; background: rgba(255, 255, 255, 0.02); border-radius: 8px;">
                 <p class="sub-title" style="font-size: 1.1rem;">{{ __('No quizzes have been published yet.') }}</p>
+                @auth
+                    @if(auth()->user()->canManageQuizzes())
+                        <a href="{{ route('quizzes.create') }}" class="btn-register-custom" style="margin-top: 1rem;">
+                            {{ __('Create Your First Quiz') }}
+                        </a>
+                    @endif
+                @endauth
             </div>
         @else
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
@@ -54,7 +65,7 @@
                                     <strong>{{ __('Duration:') }}</strong> {{ $quiz->time_limit }} {{ __('minutes') }}
                                 </div>
                                 <div>
-                                    <strong>{{ __('Created By:') }}</strong> {{ $quiz->user->username ?? __('Instructor') }}
+                                    <strong>{{ __('Created By:') }}</strong> {{ optional($quiz->user)->name ?? optional($quiz->user)->username ?? __('Instructor') }}
                                 </div>
                             </div>
                         </div>
@@ -65,16 +76,18 @@
                                 {{ __('Attempt Quiz') }}
                             </a>
 
-                            {{-- Conditional Delete option for safety checks --}}
-                            @if($quiz->user_id === Auth::id())
-                                <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST" onsubmit="return confirm('Are you completely sure you want to permanently delete this assessment?');" style="margin: 0;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-register-custom" style="background: #ef4444; font-size: 0.9rem; padding: 0.5rem 1rem;">
-                                        {{ __('Delete') }}
-                                    </button>
-                                </form>
-                            @endif
+                            {{-- Conditional Delete option - Only for quiz creators --}}
+                            @auth
+                                @if(auth()->user()->canManageQuizzes() && $quiz->user_id === Auth::id())
+                                    <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST" onsubmit="return confirm('Are you completely sure you want to permanently delete this assessment?');" style="margin: 0;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-register-custom" style="background: #ef4444; font-size: 0.9rem; padding: 0.5rem 1rem;">
+                                            {{ __('Delete') }}
+                                        </button>
+                                    </form>
+                                @endif
+                            @endauth
                         </div>
 
                     </div>

@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
     
-        Schema::create('quizzes', function (Blueprint $table) {
+        Schema::connection('quiz_db')->create('quizzes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
             $table->integer('time_limit')->comment('Time limit in minutes');
-            // Connects the quiz to the user/lecturer who created it
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     
