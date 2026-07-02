@@ -1,0 +1,875 @@
+/* ==========================================================
+   Smart Discussion Forum — Lecturer Dashboard
+   Palette: Indigo #4F46E5, Teal #14B8A6, Amber #F59E0B,
+            Coral #F43F5E, Ink #1E293B, Muted #64748B, BG #F1F5F9
+   Type: Sora (display) + Inter (body)
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --indigo:#4F46E5;
+  --indigo-soft:#EEF0FE;
+  --teal:#14B8A6;
+  --teal-soft:#E6FBF7;
+  --amber:#F59E0B;
+  --amber-soft:#FEF6E7;
+  --coral:#F43F5E;
+  --coral-soft:#FEECEF;
+  --ink:#1E293B;
+  --muted:#64748B;
+  --bg:#F1F5F9;
+  --card:#FFFFFF;
+  --border:#E7EBF3;
+  --radius:16px;
+  --shadow:0 4px 16px rgba(30,41,59,0.05);
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:'Inter',sans-serif;
+  color:var(--ink);
+  font-size:14.5px;
+}
+
+h1,h2,h3,h4{
+  font-family:'Sora',sans-serif;
+  margin:0;
+}
+
+.container{
+  display:flex;
+  min-height:100vh;
+  align-items:stretch;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar{
+  width:250px;
+  flex-shrink:0;
+  background:var(--card);
+  border-right:1px solid var(--border);
+  padding:28px 18px;
+  position:sticky;
+  top:0;
+  height:100vh;
+}
+
+.sidebar h2{
+  font-size:16px;
+  font-weight:800;
+  color:var(--indigo);
+  letter-spacing:.2px;
+  margin-bottom:6px;
+  padding:0 10px;
+}
+
+.sidebar .tagline{
+  font-size:11.5px;
+  color:var(--muted);
+  padding:0 10px;
+  margin-bottom:26px;
+  display:block;
+}
+
+.sidebar ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.sidebar li{
+  margin-bottom:4px;
+}
+
+/* li now just wraps an <a> (or a <form><button> for logout) —
+   style the link itself so the whole row is clickable */
+.sidebar li a,
+.sidebar li button{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:11px 14px;
+  border-radius:12px;
+  color:var(--muted);
+  font-weight:500;
+  font-size:14px;
+  cursor:pointer;
+  text-decoration:none;
+  background:none;
+  border:none;
+  font-family:'Inter',sans-serif;
+  text-align:left;
+  transition:background .15s ease, color .15s ease;
+}
+
+.sidebar li i{
+  font-size:16px;
+  width:20px;
+  text-align:center;
+}
+
+.sidebar li a:hover,
+.sidebar li button:hover{
+  background:var(--bg);
+  color:var(--ink);
+}
+
+.sidebar li.active a{
+  background:var(--indigo);
+  color:#fff;
+  box-shadow:0 6px 14px rgba(79,70,229,.28);
+}
+
+.sidebar li.logout{
+  margin-top:18px;
+  border-top:1px solid var(--border);
+  padding-top:16px;
+}
+
+.sidebar li.logout button{
+  color:var(--coral);
+}
+
+/* ---------- Main ---------- */
+.main{
+  flex:1;
+  padding:30px 34px 50px;
+  min-width:0;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:26px;
+}
+
+.topbar h1{
+  font-size:24px;
+  font-weight:700;
+}
+
+.topbar .sub{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:4px;
+  display:block;
+}
+
+.topbar-right{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.icon-btn{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:var(--card);
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+  position:relative;
+}
+
+.icon-btn .dot{
+  position:absolute;
+  top:8px; right:9px;
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--coral);
+}
+
+.avatar{
+  width:42px;height:42px;
+  border-radius:12px;
+  background:var(--indigo-soft);
+  color:var(--indigo);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;
+  font-family:'Sora',sans-serif;
+}
+
+/* ---------- Stat cards ---------- */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:24px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.card .chip{
+  width:38px;height:38px;
+  border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;
+}
+
+.chip.indigo{background:var(--indigo-soft);color:var(--indigo);}
+.chip.teal{background:var(--teal-soft);color:var(--teal);}
+.chip.amber{background:var(--amber-soft);color:var(--amber);}
+.chip.coral{background:var(--coral-soft);color:var(--coral);}
+
+.card h3{
+  font-size:12.5px;
+  color:var(--muted);
+  font-weight:600;
+  font-family:'Inter',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+}
+
+.card h2{
+  font-size:28px;
+  font-weight:800;
+}
+
+.card .trend{
+  font-size:12px;
+  color:var(--teal);
+  font-weight:600;
+  font-family:'Inter',sans-serif;
+}
+
+/* ---------- Content grid ---------- */
+.content{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.panel{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+  box-shadow:var(--shadow);
+}
+
+.panel-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+
+.panel-head h2{
+  font-size:16px;
+  font-weight:700;
+}
+
+.panel-head a{
+  font-size:12.5px;
+  color:var(--indigo);
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* Recent discussions list */
+.discussion-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+.discussion-item:last-child{border-bottom:none;padding-bottom:0;}
+
+.discussion-item .dicon{
+  width:38px;height:38px;
+  border-radius:10px;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+}
+
+.discussion-item .info{flex:1; min-width:0;}
+.discussion-item .info strong{
+  display:block;
+  font-size:13.5px;
+  font-weight:600;
+  color:var(--ink);
+}
+.discussion-item .info span{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.badge-count{
+  font-size:11.5px;
+  font-weight:700;
+  color:var(--indigo);
+  background:var(--indigo-soft);
+  padding:3px 9px;
+  border-radius:20px;
+}
+
+/* Deadlines timeline */
+.deadline-item{
+  display:flex;
+  gap:12px;
+  padding:11px 0;
+  border-bottom:1px solid var(--border);
+}
+.deadline-item:last-child{border-bottom:none;padding-bottom:0;}
+
+.deadline-item .dot-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:4px;
+}
+.deadline-item .dot{
+  width:9px;height:9px;border-radius:50%;
+}
+.deadline-item .info strong{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+}
+.deadline-item .info span{
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* ---------- Bottom row: engagement ring + calendar ---------- */
+.bottom-row{
+  display:grid;
+  grid-template-columns:1fr 1.4fr;
+  gap:18px;
+}
+
+.ring-panel{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.ring-panel .chart-wrap{
+  position:relative;
+  width:170px;height:170px;
+  margin:6px 0 14px;
+}
+
+.ring-center{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.ring-center strong{font-size:22px;font-family:'Sora',sans-serif;}
+.ring-center span{font-size:11px;color:var(--muted);}
+
+.legend{
+  display:flex;
+  gap:18px;
+}
+.legend div{
+  display:flex;align-items:center;gap:6px;
+  font-size:12.5px;color:var(--muted);
+}
+.legend .sw{width:9px;height:9px;border-radius:50%;}
+
+/* Calendar */
+.calendar table{
+  width:100%;
+  border-collapse:collapse;
+}
+.calendar th{
+  font-size:11px;
+  color:var(--muted);
+  font-weight:600;
+  padding-bottom:10px;
+  text-transform:uppercase;
+}
+.calendar td{
+  text-align:center;
+  padding:7px 0;
+  font-size:13px;
+  color:var(--ink);
+  border-radius:8px;
+}
+.calendar td.muted{color:#C6CDDA;}
+.calendar td.today{
+  background:var(--indigo);
+  color:#fff;
+  font-weight:700;
+}
+.calendar td.event::after{
+  content:'';
+  display:block;
+  width:4px;height:4px;
+  border-radius:50%;
+  background:var(--amber);
+  margin:2px auto 0;
+}
+
+.cal-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+.cal-nav .badge-month{
+  background:var(--indigo);
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  padding:4px 12px;
+  border-radius:20px;
+}
+.cal-nav i{color:var(--muted); cursor:pointer;}
+
+/* ---------- Group Participation Grading + Quiz Management tables ---------- */
+.panel-subhead{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+  margin:-8px 0 14px;
+}
+
+.grading-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.grading-table th{
+  text-align:left;
+  font-size:11.5px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.3px;
+  font-weight:600;
+  padding:0 10px 10px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.grading-table td{
+  padding:12px 10px 12px 0;
+  font-size:13.5px;
+  color:var(--ink);
+  border-bottom:1px solid var(--border);
+  vertical-align:middle;
+}
+
+.grading-table tr:last-child td{border-bottom:none;}
+
+.grade-pill{
+  display:inline-block;
+  min-width:26px;
+  text-align:center;
+  padding:3px 8px;
+  border-radius:8px;
+  font-weight:700;
+  font-size:12px;
+}
+.grade-a{background:var(--teal-soft);color:var(--teal);}
+.grade-b{background:var(--indigo-soft);color:var(--indigo);}
+.grade-c{background:var(--amber-soft);color:var(--amber);}
+.grade-f{background:var(--coral-soft);color:var(--coral);}
+
+.status-pill{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:11.5px;
+  font-weight:600;
+}
+.status-draft{background:var(--amber-soft);color:var(--amber);}
+.status-published{background:var(--teal-soft);color:var(--teal);}
+
+.inline-form{display:inline;}
+
+.btn-mini{
+  display:inline-block;
+  border:none;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+  padding:6px 12px;
+  border-radius:8px;
+  text-decoration:none;
+  margin-right:6px;
+}
+.btn-publish{background:var(--indigo);color:#fff;}
+.btn-edit{background:var(--bg);color:var(--ink);border:1px solid var(--border);}
+
+.btn-schedule{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:var(--indigo);
+  color:#fff;
+  border:none;
+  font-size:13px;
+  font-weight:600;
+  padding:9px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  text-decoration:none;
+}
+.btn-schedule:hover{opacity:.92; color:#fff;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1100px){
+  .cards{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:720px){
+  .sidebar{display:none;}
+  .cards{grid-template-columns:1fr;}
+  .grading-table{display:block; overflow-x:auto; white-space:nowrap;}
+}
+
+/* ==========================================================
+   Modal + form styling — written independently of Bootstrap's
+   CSS so the "Schedule a Quiz" modal looks right even if the
+   Bootstrap CSS CDN fails to load (only its JS is required for
+   open/close behavior; all visual styling below is ours).
+   ========================================================== */
+
+.modal{
+  font-family:'Inter',sans-serif;
+  position:fixed;
+  inset:0;
+  z-index:1055;
+  outline:0;
+  display:none;
+}
+
+.modal.show{
+  display:block;
+}
+
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:1050;
+  background:rgba(15,23,42,.5);
+}
+
+.modal-dialog{
+  max-width:440px;
+  margin:60px auto;
+}
+
+.modal-content{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:0 12px 32px rgba(30,41,59,0.18);
+  overflow:hidden;
+}
+
+.modal-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 22px;
+  border-bottom:1px solid var(--border);
+}
+
+.modal-title{
+  font-family:'Sora',sans-serif;
+  font-size:16px;
+  font-weight:700;
+  color:var(--ink);
+  margin:0;
+}
+
+.btn-close{
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  border:none;
+  background:var(--bg);
+  color:var(--muted);
+  font-size:14px;
+  line-height:1;
+  cursor:pointer;
+  position:relative;
+  opacity:1;
+}
+.btn-close::before{
+  content:'\2715';
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  color:var(--muted);
+}
+.btn-close:hover{background:var(--coral-soft); color:var(--coral);}
+.btn-close:hover::before{color:var(--coral);}
+
+.modal-body{
+  padding:22px;
+}
+
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  padding:16px 22px;
+  border-top:1px solid var(--border);
+}
+
+.mb-3{margin-bottom:16px;}
+
+.form-label{
+  display:block;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+
+.form-control,
+.form-select{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:13.5px;
+  font-family:'Inter',sans-serif;
+  color:var(--ink);
+  background:#fff;
+  outline:none;
+  transition:border-color .15s ease;
+}
+
+.form-control:focus,
+.form-select:focus{
+  border-color:var(--indigo);
+  box-shadow:0 0 0 3px rgba(79,70,229,.12);
+}
+
+.row{
+  display:flex;
+  gap:12px;
+  margin:0;
+}
+.row > [class*="col-"]{
+  flex:1;
+  padding:0;
+}
+
+.btn{
+  padding:9px 16px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  border:1px solid transparent;
+  font-family:'Inter',sans-serif;
+}
+.btn-outline-secondary{
+  background:#fff;
+  border-color:var(--border);
+  color:var(--muted);
+}
+.btn-outline-secondary:hover{
+  background:var(--bg);
+  color:var(--ink);
+}
+
+.alert{
+  padding:12px 16px;
+  font-size:13.5px;
+}
+.alert-success{
+  background:var(--teal-soft);
+  color:var(--teal);
+  border:1px solid transparent;
+}
+
+/* ==========================================================
+   Modal + form styling — written from scratch (not relying on
+   Bootstrap's CSS) so the "Schedule a Quiz" modal still looks
+   right even if the Bootstrap CDN stylesheet fails to load.
+   Bootstrap's JS still handles opening/closing (adds .show,
+   inserts the backdrop) — this just styles what it toggles.
+   ========================================================== */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:1055;
+  display:none;
+  overflow-y:auto;
+  padding:40px 16px;
+}
+
+.modal.show{
+  display:block;
+}
+
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.55);
+  z-index:1050;
+}
+
+.modal-dialog{
+  position:relative;
+  max-width:460px;
+  margin:0 auto;
+  z-index:1056;
+}
+
+.modal-content{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:0 20px 50px rgba(15,23,42,.25);
+  overflow:hidden;
+  border:none;
+}
+
+.modal-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 22px;
+  border-bottom:1px solid var(--border);
+}
+
+.modal-title{
+  font-family:'Sora',sans-serif;
+  font-size:16px;
+  font-weight:700;
+  color:var(--ink);
+  margin:0;
+}
+
+.modal-body{
+  padding:22px;
+}
+
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  padding:16px 22px;
+  border-top:1px solid var(--border);
+}
+
+.btn-close{
+  width:28px;
+  height:28px;
+  border:none;
+  background:var(--bg);
+  border-radius:8px;
+  cursor:pointer;
+  position:relative;
+  opacity:.7;
+}
+.btn-close:hover{opacity:1;}
+.btn-close::before,
+.btn-close::after{
+  content:'';
+  position:absolute;
+  top:50%; left:50%;
+  width:12px; height:2px;
+  background:var(--muted);
+  transform-origin:center;
+}
+.btn-close::before{transform:translate(-50%,-50%) rotate(45deg);}
+.btn-close::after{transform:translate(-50%,-50%) rotate(-45deg);}
+
+/* Form elements */
+.form-label{
+  display:block;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+
+.form-control,
+.form-select{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-family:'Inter',sans-serif;
+  font-size:13.5px;
+  color:var(--ink);
+  background:#fff;
+}
+
+.form-control:focus,
+.form-select:focus{
+  outline:none;
+  border-color:var(--indigo);
+  box-shadow:0 0 0 3px rgba(79,70,229,.12);
+}
+
+.mb-3{margin-bottom:16px;}
+
+.row{
+  display:flex;
+  gap:12px;
+  margin:0;
+}
+.row > [class*="col-"]{
+  flex:1;
+  padding:0;
+}
+
+.btn{
+  padding:9px 16px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  border:1px solid transparent;
+}
+
+.btn-outline-secondary{
+  background:#fff;
+  border:1px solid var(--border);
+  color:var(--muted);
+}
+.btn-outline-secondary:hover{
+  background:var(--bg);
+  color:var(--ink);
+}
+
+.alert{
+  padding:12px 16px;
+  font-size:13.5px;
+}
+.alert-success{
+  background:var(--teal-soft);
+  color:var(--teal);
+  border:1px solid rgba(20,184,166,.25);
+}
+
+/* body scroll lock while modal is open (Bootstrap JS adds this class) */
+body.modal-open{
+  overflow:hidden;
+}
