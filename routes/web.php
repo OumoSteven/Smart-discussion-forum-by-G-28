@@ -1,49 +1,54 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuizController; // Imported your QuizController
+use App\Http\Controllers\Admin\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/', function () {
     return view('welcome');
 });
 
- 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-
-
+// Authenticated Routes Group
 Route::middleware('auth')->group(function () {
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Quizzes Management
+    Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index');
+    Route::get('/quizzes/create', [QuizController::class, 'create'])->name('quizzes.create');
+    Route::post('/quizzes', [QuizController::class, 'store'])->name('quizzes.store');
+    Route::get('/quizzes/{id}', [QuizController::class, 'show'])->name('quizzes.show');
+    Route::delete('/quizzes/{id}', [QuizController::class, 'destroy'])->name('quizzes.destroy');
+    
 });
 
-require __DIR__.'/auth.php';
-
-use App\Http\Controllers\Admin\AdminDashboardController;
-
+// Admin Routes Group
 Route::prefix('admin')
     ->middleware(['auth', 'is_admin'])
     ->group(function () {
-        Route::get('/dashboard', [AdminDashboardController::class, 'index'])
-            ->name('admin.dashboard');
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     });
-// message
-    Route::get('/messages', function () {
+
+// Messages
+Route::get('/messages', function () {
     return view('messages.index');
 })->name('messages.index');
 
-// topics
+// Topics
 Route::get('/topics', function () {
     return view('topics.index');
 })->name('topics.index');
 
-// announcement
-
-  Route::get('/announcements', function () {
+// Announcements
+Route::get('/announcements', function () {
     return view('announcements.index');
 })->name('announcements.index');
+
+require __DIR__.'/auth.php';

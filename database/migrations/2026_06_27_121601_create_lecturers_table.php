@@ -14,18 +14,18 @@ return new class extends Migration
     Schema::create('lecturers', function (Blueprint $table) {
         $table->id();
         // Your Lecturer ID FK pointing back to user_id
-    //     $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-    //     $table->string('staff_id')->unique();
-    //     $table->timestamps();
+        $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+        $table->string('staff_id')->unique();
+        $table->timestamps();
     });
 }
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::table('lecturers', function (Blueprint $table) {
-            //
-        });
-    }
+    // public function down(): void
+    // {
+    //     Schema::table('lecturers', function (Blueprint $table) {
+    //         //
+    //     });
+    // }
 };

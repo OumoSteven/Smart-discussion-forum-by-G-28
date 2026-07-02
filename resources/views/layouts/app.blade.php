@@ -47,20 +47,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Smart Discussion Forum') }}</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Vite -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- Keep only Javascript processing if needed, stripping default Tailwind CSS bundles --}}
+    @vite(['resources/js/app.js'])
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    
+    <style>
+        /* Ensuring standard baseline layout behavior without framework overrides */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #0b0f19; /* Deep, sleek base tone */
+            color: #ffffff;
+            display: flex;
+            min-height: 100vh;
+        }
+        /* Structural flex setup to keep your sidebar fixed on left and content floating on right */
+        .main-content {
+            flex: 1;
+            padding: 2.5rem;
+            margin-left: 260px; /* Aligns content area away from your overlapping sidebar */
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
 
+    {{-- Injects your updated navigation sidebar layout component dynamically --}}
     @include('layouts.navigation')
 
     @isset($header)
@@ -69,6 +93,7 @@
         </header>
     @endisset
 
+    {{-- Custom Page content slots pass down perfectly inside here --}}
     <main class="main-content">
         {{ $slot }}
     </main>
