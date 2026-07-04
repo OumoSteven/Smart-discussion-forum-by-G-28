@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Quiz;
+use App\Models\QuizAttempt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
@@ -85,5 +88,102 @@ class QuizController extends Controller
             ],
             'groups' => $groups,
         ]);
+    }
+
+    public function index()
+    {
+        $groupIds = Auth::user()
+            ->memberships()
+            ->pluck('group_id')
+            ->toArray();
+
+        $quizzes = Quiz::whereIn('group_id', $groupIds)
+            ->where('status', 'open')
+            ->with('group')
+            ->orderBy('start_at')
+            ->get();
+
+        return view('student.quizzes.index', compact('quizzes'));
+    }
+
+    public function start(Quiz $quiz)
+    {
+        $user = Auth::user();
+
+        abort_unless($user->groups()->where('group_id', $quiz->group_id)->exists(), 403);
+        abort_unless($quiz->status === 'open', 403);
+        abort_if($quiz->start_at->isFuture(), 403);
+
+        $existingAttempt = QuizAttempt::where('quiz_id', $quiz->quiz_id)
+            ->where('user_id', $user->id)
+            ->where('status', 'in_progress')
+            ->first();
+
+        if ($existingAttempt) {
+            return redirect()->route('student.quizzes.attempt', $existingAttempt);
+        }
+
+        $attempt = QuizAttempt::create([
+            'quiz_id' => $quiz->quiz_id,
+            'user_id' => $user->id,
+            'started_at' => now(),
+            'status' => 'in_progress',
+        ]);
+
+        return redirect()
+            ->route('student.quizzes.attempt', $attempt)
+            ->with('success', 'Quiz started. Complete the questions below.');
+    }
+
+    public function attempt(QuizAttempt $attempt)
+    {
+        abort_unless($attempt->user_id === Auth::id(), 403);
+
+        $quiz = $attempt->quiz()->with('questions')->first();
+
+        return view('student.quizzes.attempt', compact('attempt', 'quiz'));
+    }
+
+    public function submitAttempt(Request $request, QuizAttempt $attempt)
+    {
+        abort_unless($attempt->user_id === Auth::id(), 403);
+        abort_unless($attempt->status === 'in_progress', 403);
+
+        $request->validate([
+            'answers' => 'required|array',
+            'answers.*' => 'nullable|string',
+        ]);
+
+        $quiz = $attempt->quiz()->with('questions')->first();
+        $answers = $request->input('answers', []);
+        $score = 0;
+
+        $attempt->answers()->delete();
+
+        foreach ($quiz->questions as $question) {
+            $selected = data_get($answers, $question->question_id);
+            $isCorrect = $selected === $question->correct_option;
+
+            Answer::create([
+                'attempt_id' => $attempt->attempt_id,
+                'question_id' => $question->question_id,
+                'selected' => $selected,
+                'is_correct' => $isCorrect,
+            ]);
+
+            if ($isCorrect) {
+                $score += $question->marks;
+            }
+        }
+
+        $attempt->update([
+            'submitted_at' => now(),
+            'score' => $score,
+            'status' => 'submitted',
+        ]);
+
+        return redirect()
+            ->route('student.quizzes.attempt', $attempt)
+            ->with('success', 'Quiz submitted successfully.');
     }
 }
