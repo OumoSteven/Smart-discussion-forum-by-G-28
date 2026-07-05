@@ -91,9 +91,17 @@
         </div>
 
         <div class="nav-buttons">
-            <a href="{{ route('login') }}" class="btn">Login</a>
-            <a href="{{ route('register') }}" class="btn">Register</a>
-            <a href="/about" class="btn">About</a>
+            @auth
+                <a href="{{ route('dashboard') }}" class="btn">Dashboard</a>
+                <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="btn" style="background:#3b82f6;border-color:#3b82f6;cursor:pointer;">Logout</button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="btn">Login</a>
+                <a href="{{ route('register') }}" class="btn">Register</a>
+                <a href="/about" class="btn">About</a>
+            @endauth
         </div>
     </nav>
 

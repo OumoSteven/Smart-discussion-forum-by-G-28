@@ -103,11 +103,16 @@
                         <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                             <i class="fas fa-cog w-5 text-slate-500"></i> Settings
                         </a>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 transition">
-                            <i class="fas fa-sign-out-alt w-5"></i> Logout
-                        </a>
-                        <form method="POST" action="{{ route('logout') }}" class="hidden">@csrf</form>
-                    </nav>
+                        <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+
+                                <button type="submit"
+                                    class="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 transition">
+                                    <i class="fas fa-sign-out-alt w-5"></i>
+                                    Logout
+                                </button>
+                            </form>
+                            </nav>
 
                     <div class="mt-auto pt-4 border-t border-slate-200 dark:border-slate-800">
                         <div class="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
