@@ -24,6 +24,12 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 Route::get('/', function () {
     return view('welcome');
 });
+// about
+// routes/web.php
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about'); // <--- This name must match exactly what's in your blade file
 // terms
 Route::get('/terms-and-conditions', function () {
     return view('terms');
